@@ -3,6 +3,7 @@ import jwt from 'jsonwebtoken'
 import bcrypt from 'bcrypt'
 import validator from 'validator'
 
+
 //Login user
 const loginUser = async (req, res) => {
         const {email, password} = req.body;
@@ -18,7 +19,7 @@ const loginUser = async (req, res) => {
                 res.json({success: false, message: "invalid credentials"})
             }
             const token = createToken(user._id)
-            res.json({success: true, message: token})
+            res.json({success: true, token})
 
             
         } catch (error) {
@@ -69,6 +70,7 @@ const registerUser = async (req, res) => {
             const user = await newUser.save()
             const token = createToken(user._id)
             res.json({success: true, token})
+            
         } catch (error) {
             console.log(error);
             res.json({success: false, message:"Error"})
