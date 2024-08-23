@@ -12,6 +12,14 @@ dotenv.config();
 const app = express()
 const port = 4000
 
+app.use(cors(
+    {
+        origin: ["https://deploy-mern-frontend.vercel.app"],
+        methods: ["POST", "GET"],
+        credentials: true
+    }
+));
+
 //middleware
 app.use(express.json())
 app.use(cors())
