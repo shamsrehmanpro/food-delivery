@@ -20,7 +20,8 @@ app.use(cors(
     {
         origin: ["https://mern-project-food-del-frontend.vercel.app"],
         methods: ["POST", "GET", "PUT", "DELETE"],
-        credentials: true
+        allowedHeaders: 'Content-Type,Authorization',
+          credentials: true
     }
 ));
 
