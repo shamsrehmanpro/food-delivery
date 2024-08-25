@@ -18,7 +18,7 @@ const port = 4000
 app.use(express.json())
 app.use(cors(
     {
-        origin: ["https://mern-project-food-del-frontend.vercel.app/"],
+        origin: ["https://mern-project-food-del-frontend.vercel.app"],
         methods: ["POST", "GET"],
         credentials: true
     }
