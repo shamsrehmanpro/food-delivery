@@ -16,15 +16,16 @@ const port = 4000
 
 //middleware
 app.use(express.json())
-app.use(cors(
+/*app.use(cors(
     {
-        origin: ["https://deploy-mern-frontend.vercel.app"],
-        methods: ["POST", "GET"],
-        credentials: true
+        origin: ["https://mern-project-food-del-frontend.vercel.app"],
+        methods: ["POST", "GET", "PUT", "DELETE"],
+        allowedHeaders: 'Content-Type,Authorization',
+          credentials: true
     }
-));
+));*/
 
-
+app.use(cors())
 
 //db connection
 connectDB() ;

@@ -20,6 +20,9 @@ const Add = ({url}) => {
         const {name, value} = e.target;
 
         setData((prevValue)=>({...prevValue, [name] : value}))
+        console.log(data)
+        console.log(image);
+        
       }
 
       const onSubmitHandler = async (e) => {

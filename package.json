@@ -1,0 +1,11 @@
+{
+  "scripts": {
+    "server": "nodemon server.js",
+    "build": "npm i"
+  },
+  "dependencies": {
+    "aws-sdk": "^2.1682.0",
+    "multer": "^1.4.5-lts.1",
+    "multer-s3": "^3.0.1"
+  }
+}
