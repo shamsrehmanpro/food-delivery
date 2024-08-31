@@ -16,16 +16,16 @@ const port = process.env.PORT || 4000
 
 //middleware
 app.use(express.json())
-app.use(cors(
+/*app.use(cors(
     {
         origin: ["https://mern-project-food-del-frontend.vercel.app"],
         methods: ["POST", "GET", "PUT", "DELETE"],
         allowedHeaders: 'Content-Type,Authorization',
           credentials: true
     }
-));
+));*/
 
-
+app.use(cors())
 
 //db connection
 connectDB() ;
