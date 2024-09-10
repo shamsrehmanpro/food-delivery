@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./LoginPopUp.css";
-import axios from 'axios'
+import axios from "axios";
+import { Link, useNavigate } from "react-router-dom";
 
 import { assets } from "../../assets/assets";
 import { useContext } from "react";
@@ -14,41 +15,56 @@ const LoginPopUp = ({ setShowLogin }) => {
     password: "",
   });
 
-  let {url, setToken} = useContext(StoreContext)
+  const [disableNavigation, setDisableNavigation] = useState(false);
+  const navigate = useNavigate()
+  let { url, setToken } = useContext(StoreContext);
 
   const onChangeHandler = (event) => {
-    const {name, value} = event.target;
-    setData(prevValue => ({...prevValue, [name] : value}))
-  }
+    const { name, value } = event.target;
+    setData((prevValue) => ({ ...prevValue, [name]: value }));
+  };
 
-  const onLogin = async(event) => {
+  const onLogin = async (event) => {
     event.preventDefault();
-      let newUrl = url;
+    let newUrl = url;
 
-      if (currState === 'Login') {
-        newUrl += '/api/user/login'
-      } else {
-        newUrl += '/api/user/register'
-      }
-      
-      const response = await axios.post(newUrl, data)
-      
+    if (currState === "Login") {
+      newUrl += "/api/user/login";
+      const response = await axios.post(newUrl, data);
 
       if (response.data.success) {
         console.log("Token received:", response.data.token);
         setToken(response.data.token);
-        localStorage.setItem('token', response.data.token)
-        setShowLogin(false)
-      }else{
-        alert(response.data.message)
-      }
-
-  }
-
+        localStorage.getItem("token", response.data.token);
+        setShowLogin(false);
+        
   
+      } else {
+        alert(response.data.message);
+      }
+    } else {
+      newUrl += "/api/user/register";
+      const response = await axios.post(newUrl, data);
+
+      if (response.data.success) {
+        console.log("Token received:", response.data.token);
+        setToken("");
+        localStorage.removeItem("token");
+        setShowLogin(false);
+        setDisableNavigation(true)
+        navigate('/verify-email')
+  
+      } else {
+        alert(response.data.message);
+      }
+    }
+
+   
+  };
 
   return (
     <div className="login-popup">
+      {/* {disableNavigation && <div className="navigation-blocker"></div>}  */}
       <form onSubmit={onLogin} className="login-popup-container">
         <div className="login-popup-title">
           <h2>{currState}</h2>
@@ -60,15 +76,40 @@ const LoginPopUp = ({ setShowLogin }) => {
         </div>
         <div className="login-popup-inputs">
           {currState === "Sign up" ? (
-            <input name="name" onChange={onChangeHandler} value={data.name} type="text" placeholder="Your Name" />
+            <input
+              name="name"
+              onChange={onChangeHandler}
+              value={data.name}
+              type="text"
+              placeholder="Your Name"
+            />
           ) : (
             <></>
           )}
 
-          <input name="email" onChange={onChangeHandler} value={data.email} type="email" placeholder="Your Email" />
-          <input name="password" onChange={onChangeHandler} value={data.password} type="password" placeholder="Your Password" />
+          <input
+            name="email"
+            onChange={onChangeHandler}
+            value={data.email}
+            type="email"
+            placeholder="Your Email"
+          />
+          <input
+            name="password"
+            onChange={onChangeHandler}
+            value={data.password}
+            type="password"
+            placeholder="Your Password"
+          />
         </div>
-        <button type="submit">{currState === "Login" ? "Login" : " Create account"}</button>
+        <button type="submit">
+          {currState === "Login" ? "Login" : " Create account"}
+        </button>
+
+        {currState === "Login" ?  <Link onClick={()=>setShowLogin(false)} to="/forgot-password"><span className="forgotpassword">Forgot Password</span></Link>  : null}
+
+
+      
         <div className="login-popup-condition">
           <input type="checkbox" required />
           <p>By continuing, I agree to the term of use & privacy policy .</p>

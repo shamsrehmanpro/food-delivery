@@ -81,3 +81,12 @@
     font-weight: 500;
     cursor: pointer;
 }
+.forgotpassword{
+    width: 100%;
+    padding-left: 30px;
+    /*make column gap 0*/
+    gap: 0;
+    color: tomato;
+    cursor: pointer;
+
+}
