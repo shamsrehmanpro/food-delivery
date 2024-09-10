@@ -15,7 +15,19 @@ const port = process.env.PORT || 4000
 
 
 //middleware
+<<<<<<< HEAD
 app.use(express.json()) //allows us to parse incomming requests: req.body
+=======
+app.use(express.json())
+/*app.use(cors(
+    {
+        origin: ["https://mern-project-food-del-frontend.vercel.app"],
+        methods: ["POST", "GET", "PUT", "DELETE"],
+        allowedHeaders: 'Content-Type,Authorization',
+          credentials: true
+    }
+));*/
+>>>>>>> 553d4a71e8135c02003ba17b20ef4f82cde44fab
 
 app.use(cors())
 
