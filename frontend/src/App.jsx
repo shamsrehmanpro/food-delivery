@@ -33,6 +33,7 @@ const App = () => {
         <Route path='/myorders' element={<MyOrder />}/>
         <Route path='/verify-email' element={<EmailVerificationPage />}/>
         <Route path='/forgot-password' element={<ForgotPassword />}/>
+        <Route path='/forgot-password' element={<ForgotPassword />}/>
       </Routes>
      
     </div>

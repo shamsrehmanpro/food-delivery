@@ -13,13 +13,13 @@ const ForgotPassword = () => {
 
 
     try {
-      const response = await axios.post("/api/forgot-password", { email });
+      const response = await axios.post("http://localhost:4000/api/user/forgot-password", { email });
 
       if (response.data.success) {
         setSuccess(response.data.message);
         setEmail(""); // Clear email input after success
       } else {
-        setError(response.data.message);
+        setError("Password reset email send to your email address");
       }
     } catch (error) {
       console.error("Error sending reset email:", error);
