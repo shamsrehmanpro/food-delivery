@@ -1,23 +1,28 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import "./ForgotPassword.css";
 import axios from "axios"; // Import axios
+import ResetPassword from "../ResetPassword/ResetPassword";
+import { StoreContext } from "../../Context/StoreContext";
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState("");
   const [error, setError] = useState(null);
-  const [success, setSuccess] = useState(null); 
-
-
+  const [success, setSuccess] = useState(null);
+  const {resetToken, setResetToken} = useContext(StoreContext)
   const handleSubmit = async (event) => {
-    event.preventDefault(); 
-
+    event.preventDefault();
 
     try {
-      const response = await axios.post("http://localhost:4000/api/user/forgot-password", { email });
+      const response = await axios.post(
+        "http://localhost:4000/api/user/forgot-password",
+        { email }
+      );
 
       if (response.data.success) {
-        setSuccess(response.data.message);
+        setSuccess("Password reset email send to your email address");
         setEmail(""); // Clear email input after success
+        
+        
       } else {
         setError("Password reset email send to your email address");
       }

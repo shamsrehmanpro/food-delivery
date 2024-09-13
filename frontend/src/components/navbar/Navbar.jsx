@@ -6,6 +6,9 @@ import { StoreContext } from "../../Context/StoreContext";
 
 const Navbar = ({ setShowLogin }) => {
   const [menu, setmenu] = useState("Home");
+  const [searchTerm, setSearchTerm] = useState(false);
+  const [searchBar, setSearchBar] = useState("");
+
   function handleClick(event) {
     setmenu(event.target.getAttribute("value"));
     console.log(event.target.getAttribute("value"));
@@ -25,7 +28,12 @@ const Navbar = ({ setShowLogin }) => {
       <Link to={"/"}>
         <img src={assets.logo} alt="" className="logo" />
       </Link>
-      <ul className="navbar-menu">
+
+      {searchTerm ? 
+      /* create search bar */
+      <input onChange={(e)=>setSearchBar(e.target.value)} type="search" onBlur={()=> setSearchTerm(false)} className="searchbar" />
+        :  
+        <ul className="navbar-menu">
         <Link
           to="/"
           value="Home"
@@ -59,8 +67,10 @@ const Navbar = ({ setShowLogin }) => {
           Contact Us
         </a>
       </ul>
+       }
+     
       <div className="navbar-right">
-        <img src={assets.search_icon} alt="" />
+        <img onClick={()=>setSearchTerm(!searchTerm)} className="searchImg" src={assets.search_icon} alt="" />
         <div className="navbar-search-icon">
           <Link to={"/cart"}>
             <img src={assets.basket_icon} alt="" />

@@ -159,7 +159,7 @@ const forgotPassword = async(req, res) => {
 
         //send email
         await sendPasswordResetEmail(user.email, `http://localhost:5173/reset-password/${resetToken}`)
-        res.status(200).json({success: true, message: "Error not in forgot password"});
+        res.status(200).json({success: true, message: "Error not in forgot password", resetToken});
     
     } catch (error) {
         console.log("Error in forgot password", error);

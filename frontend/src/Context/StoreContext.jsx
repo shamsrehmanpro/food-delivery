@@ -10,6 +10,7 @@ const StoreContextProvider = (props) => {
         const url = 'http://localhost:4000';
         const [token, setToken] = useState("")
         const [food_list, setFoodList] = useState([]);
+        const [resetToken, setResetToken] = useState(null)
 
 
         const fetchFoodList = async () => {
@@ -64,6 +65,7 @@ const StoreContextProvider = (props) => {
               }
             }
             loadData();
+            
 
         }, [])
         
@@ -77,7 +79,10 @@ const StoreContextProvider = (props) => {
             getTotalCartAmount,
             url,
             token,
-            setToken
+            setToken,
+            resetToken,
+            setResetToken,
+            
     }
 
     return(

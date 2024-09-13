@@ -10,14 +10,13 @@ import Verify from './pages/verify/Verify.jsx'
 import MyOrder from './pages/MyOrders/MyOrder.jsx'
 import EmailVerificationPage from './pages/EmailVerificationPage/EmailVerificationPage.jsx'
 import ForgotPassword from './pages/ForgotPassword/ForgotPassword.jsx'
+import ResetPassword from './pages/ResetPassword/ResetPassword.jsx'
 
 
 
 const App = () => {
   const [showLogin, setShowLogin] = useState(false)
-
   
-
 
   return (
     <>
@@ -33,7 +32,7 @@ const App = () => {
         <Route path='/myorders' element={<MyOrder />}/>
         <Route path='/verify-email' element={<EmailVerificationPage />}/>
         <Route path='/forgot-password' element={<ForgotPassword />}/>
-        <Route path='/forgot-password' element={<ForgotPassword />}/>
+        <Route path='/reset-password/:token' element={<ResetPassword  setShowLogin={setShowLogin}/>}/>
       </Routes>
      
     </div>
