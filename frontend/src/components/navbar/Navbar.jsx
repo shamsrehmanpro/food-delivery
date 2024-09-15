@@ -8,20 +8,33 @@ const Navbar = ({ setShowLogin }) => {
   const [menu, setmenu] = useState("Home");
   const [searchTerm, setSearchTerm] = useState(false);
   const [searchBar, setSearchBar] = useState("");
+  
 
-  function handleClick(event) {
-    setmenu(event.target.getAttribute("value"));
-    console.log(event.target.getAttribute("value"));
+  const { getTotalCartAmount, token, setToken, food_list,setSearchResult, searchResult } = useContext(StoreContext);
+
+  const handleChange = (e) => { 
+    setSearchBar(e.target.value)
+    if (searchBar.length > 0) {
+      const filteredFood = food_list.filter(food => food.name.toLowerCase().includes(searchBar))
+      setSearchResult(filteredFood)
+      //now what to do 
+      console.log(searchResult);
+      
+    }
+
+  }  
+
+  const handleClick = () => {
+    setSearchTerm(!searchTerm)
   }
-  const { getTotalCartAmount, token, setToken } = useContext(StoreContext);
 
   const navigate = useNavigate();
 
   const logout = () => {
-      localStorage.removeItem('token')
-      setToken("");
-      navigate('/')
-  }
+    localStorage.removeItem("token");
+    setToken("");
+    navigate("/");
+  };
 
   return (
     <div className="navbar">
@@ -29,48 +42,58 @@ const Navbar = ({ setShowLogin }) => {
         <img src={assets.logo} alt="" className="logo" />
       </Link>
 
-      {searchTerm ? 
-      /* create search bar */
-      <input onChange={(e)=>setSearchBar(e.target.value)} type="search" onBlur={()=> setSearchTerm(false)} className="searchbar" />
-        :  
+      {searchTerm ? (
+        /* create search bar */
+        <input
+          onChange={handleChange}
+          type="search"
+          onBlur={() => setSearchTerm(false)}
+          className="searchbar"
+        />
+      ) : (
         <ul className="navbar-menu">
-        <Link
-          to="/"
-          value="Home"
-          onClick={handleClick}
-          className={menu === "Home" ? "active" : ""}
-        >
-          Home
-        </Link>
-        <a
-          href="#explore-menu"
-          value="Menu"
-          onClick={handleClick}
-          className={menu === "Menu" ? "active" : ""}
-        >
-          Menu
-        </a>
-        <a
-          href="#app-download"
-          value="Mobile App"
-          onClick={handleClick}
-          className={menu === "Mobile App" ? "active" : ""}
-        >
-          Mobile App
-        </a>
-        <a
-          href="#footer"
-          value="Contact Us"
-          onClick={handleClick}
-          className={menu === "Contact Us" ? "active" : ""}
-        >
-          Contact Us
-        </a>
-      </ul>
-       }
-     
+          <Link
+            to="/"
+            value="Home"
+            onClick={handleClick}
+            className={menu === "Home" ? "active" : ""}
+          >
+            Home
+          </Link>
+          <a
+            href="#explore-menu"
+            value="Menu"
+            onClick={handleClick}
+            className={menu === "Menu" ? "active" : ""}
+          >
+            Menu
+          </a>
+          <a
+            href="#app-download"
+            value="Mobile App"
+            onClick={handleClick}
+            className={menu === "Mobile App" ? "active" : ""}
+          >
+            Mobile App
+          </a>
+          <a
+            href="#footer"
+            value="Contact Us"
+            onClick={handleClick}
+            className={menu === "Contact Us" ? "active" : ""}
+          >
+            Contact Us
+          </a>
+        </ul>
+      )}
+
       <div className="navbar-right">
-        <img onClick={()=>setSearchTerm(!searchTerm)} className="searchImg" src={assets.search_icon} alt="" />
+        <img
+          onClick={handleClick}
+          className="searchImg"
+          src={assets.search_icon}
+          alt=""
+        />
         <div className="navbar-search-icon">
           <Link to={"/cart"}>
             <img src={assets.basket_icon} alt="" />
@@ -83,12 +106,17 @@ const Navbar = ({ setShowLogin }) => {
         ) : (
           <div className="navbar-profile">
             <img src={assets.profile_icon} alt="" />
-              <ul className="nav-profile-dropdown">
-                <li onClick={()=>navigate('/myorders')}><img src={assets.bag_icon} alt=""  /><p>Orders</p></li>
-                <hr />
-                <li onClick={logout}><img src={assets.logout_icon} alt="" />Logout</li>
-              </ul>
-
+            <ul className="nav-profile-dropdown">
+              <li onClick={() => navigate("/myorders")}>
+                <img src={assets.bag_icon} alt="" />
+                <p>Orders</p>
+              </li>
+              <hr />
+              <li onClick={logout}>
+                <img src={assets.logout_icon} alt="" />
+                Logout
+              </li>
+            </ul>
           </div>
         )}
       </div>

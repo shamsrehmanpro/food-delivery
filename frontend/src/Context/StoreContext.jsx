@@ -10,13 +10,18 @@ const StoreContextProvider = (props) => {
         const url = 'http://localhost:4000';
         const [token, setToken] = useState("")
         const [food_list, setFoodList] = useState([]);
-        const [resetToken, setResetToken] = useState(null)
+        const [searchResult, setSearchResult] = useState([]);
+        
 
 
         const fetchFoodList = async () => {
-            const response = await axios.get(url+"/api/food/list");
-            setFoodList(response.data.data);
-        }
+            try {
+              const response = await axios.get(url + "/api/food/list");
+              setFoodList(response.data.data);
+            } catch (error) {
+              console.error("Error fetching food list:", error);
+            }
+          };
 
         const addToCart = async (itemId) => {
             if (!cartItems[itemId]) {
@@ -65,6 +70,9 @@ const StoreContextProvider = (props) => {
               }
             }
             loadData();
+           
+           
+            
             
 
         }, [])
@@ -80,8 +88,8 @@ const StoreContextProvider = (props) => {
             url,
             token,
             setToken,
-            resetToken,
-            setResetToken,
+            searchResult,
+            setSearchResult,
             
     }
 

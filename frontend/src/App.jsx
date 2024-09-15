@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, {  useState } from 'react'
 import Navbar from './components/navbar/Navbar'
 import { Route, Routes } from 'react-router-dom'
 import Cart from './pages/Cart/Cart.jsx'
@@ -16,6 +16,7 @@ import ResetPassword from './pages/ResetPassword/ResetPassword.jsx'
 
 const App = () => {
   const [showLogin, setShowLogin] = useState(false)
+ 
   
 
   return (
